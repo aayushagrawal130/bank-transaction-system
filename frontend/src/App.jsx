@@ -73,18 +73,14 @@ export default function App() {
       <Navbar user={user} onLogout={handleLogoutSuccess} />
       <main style={styles.main}>
         <Routes>
-          {/* Public Auth Routes */}
+          {/* Public Auth Routes (Always accessible directly) */}
           <Route 
             path="/login" 
-            element={
-              user ? <Navigate to="/" replace /> : <Login onLoginSuccess={handleLoginSuccess} />
-            } 
+            element={<Login onLoginSuccess={handleLoginSuccess} />} 
           />
           <Route 
             path="/register" 
-            element={
-              user ? <Navigate to="/" replace /> : <Register onLoginSuccess={handleLoginSuccess} />
-            } 
+            element={<Register onLoginSuccess={handleLoginSuccess} />} 
           />
 
           {/* Main Entry / Dashboard (Directly opens Login if not authenticated) */}

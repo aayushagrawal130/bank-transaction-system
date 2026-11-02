@@ -209,12 +209,27 @@ export default function Transactions({ user }) {
   };
 
   // Filter transactions based on active tab
-  const filteredTransactions = transactions.filter((tx) => {
-    const isSender = myAccountIds.includes(tx.fromAccount?._id?.toString() || tx.fromAccount?.toString());
-    const isReceiver = myAccountIds.includes(tx.toAccount?._id?.toString() || tx.toAccount?.toString());
+  const sentCount = transactions.filter(tx => {
+    const fromId = tx.fromAccount?._id?.toString() || tx.fromAccount?.toString();
+    return myAccountIds.includes(fromId);
+  }).length;
 
-    if (activeTab === "SENT") return isSender && !isReceiver;
-    if (activeTab === "RECEIVED") return isReceiver;
+  const receivedCount = transactions.filter(tx => {
+    const fromId = tx.fromAccount?._id?.toString() || tx.fromAccount?.toString();
+    const toId = tx.toAccount?._id?.toString() || tx.toAccount?.toString();
+    const isSender = myAccountIds.includes(fromId);
+    const isReceiver = myAccountIds.includes(toId);
+    return isReceiver && !isSender;
+  }).length;
+
+  const filteredTransactions = transactions.filter((tx) => {
+    const fromId = tx.fromAccount?._id?.toString() || tx.fromAccount?.toString();
+    const toId = tx.toAccount?._id?.toString() || tx.toAccount?.toString();
+    const isSender = myAccountIds.includes(fromId);
+    const isReceiver = myAccountIds.includes(toId);
+
+    if (activeTab === "SENT") return isSender;
+    if (activeTab === "RECEIVED") return isReceiver && !isSender;
     return true;
   });
 
@@ -394,13 +409,13 @@ export default function Transactions({ user }) {
               style={{ ...styles.tabBtn, ...(activeTab === "RECEIVED" ? styles.activeTabBtn : {}) }}
               onClick={() => setActiveTab("RECEIVED")}
             >
-              Received (Credits)
+              Received (Credits) ({receivedCount})
             </button>
             <button
               style={{ ...styles.tabBtn, ...(activeTab === "SENT" ? styles.activeTabBtn : {}) }}
               onClick={() => setActiveTab("SENT")}
             >
-              Sent (Debits)
+              Sent (Debits) ({sentCount})
             </button>
           </div>
 

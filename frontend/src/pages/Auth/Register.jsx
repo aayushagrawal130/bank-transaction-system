@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ShieldCheck, Mail, Lock, User, Landmark } from "lucide-react";
+import { ShieldCheck, Mail, Lock, User, Landmark, Eye, EyeOff } from "lucide-react";
 import API from "../../api";
 
 export default function Register({ onLoginSuccess }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -114,7 +115,7 @@ export default function Register({ onLoginSuccess }) {
                 <Lock size={18} style={styles.inputIcon} />
                 <input
                   id="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   className="form-input"
                   style={styles.inputWithIcon}
                   value={password}
@@ -123,6 +124,14 @@ export default function Register({ onLoginSuccess }) {
                   minLength={6}
                   required
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={styles.togglePasswordBtn}
+                  title={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
               </div>
             </div>
 
@@ -274,6 +283,20 @@ const styles = {
   },
   inputWithIcon: {
     paddingLeft: "42px",
+    paddingRight: "42px",
+  },
+  togglePasswordBtn: {
+    position: "absolute",
+    right: "14px",
+    background: "none",
+    border: "none",
+    color: "var(--color-text-muted)",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "4px",
+    transition: "color 0.2s ease",
   },
   submitBtn: {
     width: "100%",

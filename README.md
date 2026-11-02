@@ -8,8 +8,8 @@ An advanced, real-world full-stack banking and double-entry transaction system b
 
 | Portal | Direct Link | Description |
 | :--- | :--- | :--- |
-| 🔑 **Client Login** | [Open Sign In Portal](https://bank-transaction-system.vercel.app/login) | Access your private bank ledger & dashboard |
-| 📝 **Open Account** | [Open Registration Portal](https://bank-transaction-system.vercel.app/register) | Create a new private trust account |
+| 🔑 **Client Login** | [Open Sign In Portal](https://bank-transaction-system-sigma.vercel.app/login) | Access your private bank ledger & dashboard |
+| 📝 **Open Account** | [Open Registration Portal](https://bank-transaction-system-sigma.vercel.app/register) | Create a new private trust account |
 | ⚙️ **Backend Service** | [Render Backend API](https://bank-transaction-system.onrender.com) | Express & MongoDB REST API |
 
 ---

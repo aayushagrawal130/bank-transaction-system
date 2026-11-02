@@ -7,8 +7,20 @@ const transactionRoutes = require("./routes/transaction.routes");
 
 const app = express();
 
+const allowedOrigins = [
+    process.env.CLIENT_ORIGIN,
+    "http://localhost:5173",
+    "http://localhost:3000"
+].filter(Boolean);
+
 app.use(cors({
-    origin: process.env.CLIENT_ORIGIN || "http://localhost:5173",
+    origin: function (origin, callback) {
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin) || origin.endsWith(".vercel.app") || process.env.NODE_ENV !== "production") {
+            return callback(null, true);
+        }
+        return callback(null, true);
+    },
     credentials: true
 }));
 

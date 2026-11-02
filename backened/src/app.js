@@ -39,6 +39,11 @@ app.use("/api/auth", authRouter);
 app.use("/api/accounts", accountRouter);
 app.use("/api/transactions", transactionRoutes);
 
+// Fallback alias directly without /api prefix to support all baseURL variants
+app.use("/auth", authRouter);
+app.use("/accounts", accountRouter);
+app.use("/transactions", transactionRoutes);
+
 // Catch-all 404 for unmapped API endpoints
 app.use((req, res) => {
     res.status(404).json({

@@ -32,7 +32,7 @@ export default function Login({ onLoginSuccess }) {
       localStorage.setItem("user_data", JSON.stringify(user));
       
       onLoginSuccess(user);
-      navigate("/");
+      navigate("/dashboard");
     } catch (err) {
       console.error("Login error:", err);
       setError(

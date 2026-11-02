@@ -17,7 +17,7 @@ export default function Navbar({ user, onLogout }) {
       console.error("Logout failed on server:", err);
     } finally {
       onLogout();
-      navigate("/login");
+      navigate("/");
     }
   };
 
@@ -27,7 +27,7 @@ export default function Navbar({ user, onLogout }) {
     <>
       <header style={styles.header}>
         <div style={styles.container}>
-          <Link to="/" style={styles.logoContainer} onClick={() => setMobileMenuOpen(false)}>
+          <Link to={user ? "/dashboard" : "/"} style={styles.logoContainer} onClick={() => setMobileMenuOpen(false)}>
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <Landmark size={28} color="var(--color-accent)" />
               <div>
@@ -41,10 +41,10 @@ export default function Navbar({ user, onLogout }) {
           {user && (
             <nav style={styles.nav}>
               <Link 
-                to="/" 
+                to="/dashboard" 
                 style={{
                   ...styles.navLink,
-                  ...(isActive("/") ? styles.activeNavLink : {})
+                  ...(isActive("/dashboard") ? styles.activeNavLink : {})
                 }}
               >
                 Dashboard
@@ -141,8 +141,8 @@ export default function Navbar({ user, onLogout }) {
         {mobileMenuOpen && user && (
           <div style={styles.mobileMenu}>
             <Link 
-              to="/" 
-              style={{ ...styles.mobileNavLink, ...(isActive("/") ? styles.activeMobileNavLink : {}) }}
+              to="/dashboard" 
+              style={{ ...styles.mobileNavLink, ...(isActive("/dashboard") ? styles.activeMobileNavLink : {}) }}
               onClick={() => setMobileMenuOpen(false)}
             >
               Dashboard

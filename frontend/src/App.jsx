@@ -73,7 +73,11 @@ export default function App() {
       <Navbar user={user} onLogout={handleLogoutSuccess} />
       <main style={styles.main}>
         <Routes>
-          {/* Public Auth Routes (Always accessible directly) */}
+          {/* Main Entry / Auth Routes (Always open Login directly from GitHub or root link) */}
+          <Route 
+            path="/" 
+            element={<Login onLoginSuccess={handleLoginSuccess} />} 
+          />
           <Route 
             path="/login" 
             element={<Login onLoginSuccess={handleLoginSuccess} />} 
@@ -83,15 +87,13 @@ export default function App() {
             element={<Register onLoginSuccess={handleLoginSuccess} />} 
           />
 
-          {/* Main Entry / Dashboard (Directly opens Login if not authenticated) */}
+          {/* Protected Client Portal Routes */}
           <Route
-            path="/"
+            path="/dashboard"
             element={
-              user ? (
+              <ProtectedRoute user={user}>
                 <Dashboard user={user} />
-              ) : (
-                <Login onLoginSuccess={handleLoginSuccess} />
-              )
+              </ProtectedRoute>
             }
           />
           <Route

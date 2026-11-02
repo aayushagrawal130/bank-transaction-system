@@ -87,13 +87,15 @@ export default function App() {
             } 
           />
 
-          {/* Protected Client Portal Routes */}
+          {/* Main Entry / Dashboard (Directly opens Login if not authenticated) */}
           <Route
             path="/"
             element={
-              <ProtectedRoute user={user}>
+              user ? (
                 <Dashboard user={user} />
-              </ProtectedRoute>
+              ) : (
+                <Login onLoginSuccess={handleLoginSuccess} />
+              )
             }
           />
           <Route
